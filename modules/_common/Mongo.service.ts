@@ -53,7 +53,7 @@ export class Mongo implements OnModuleInit {
                 }
                 this.connection = client
                 this.myLogger.log('MongoDB INITED', 'MongoService')
-                resolve()
+                resolve('')
             })
         })
     }

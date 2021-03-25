@@ -38,7 +38,7 @@ function getMongoConfig(): {
     return {
         url, // 数据库链接
         poolSize: 30, // 数据库连接池最大连接数
-        appDbName: 'fast-nest', // 数据库默认表名，如果获取collection时未填写db则会取该值
+        appDbName: 'yocard', // 数据库默认表名，如果获取collection时未填写db则会取该值
     }
 }
 

@@ -70,6 +70,7 @@
     "qcloudapi-sdk": "^0.2.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^6.5.3",
+    "uuidjs": "^4.2.8",
     "winston": "^3.3.3",
     "winston-daily-rotate-file": "^4.5.0"
   },
