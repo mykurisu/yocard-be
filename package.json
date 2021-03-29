@@ -8,7 +8,8 @@
     "deploy": "tsc -p tsconfig.json && cross-env NODE_ENV=production node build/main.js",
     "deploy:pm2": "tsc -p tsconfig.json && cross-env NODE_ENV=production pm2 start pm2.json",
     "doc": "compodoc -p tsconfig.json -s",
-    "create": "ts-node _script/moduleCreator.ts"
+    "create": "ts-node _script/moduleCreator.ts",
+    "init": "ts-node _script/mongo/user.ts"
   },
   "repository": {
     "type": "git",

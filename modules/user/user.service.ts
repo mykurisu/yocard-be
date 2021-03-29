@@ -29,7 +29,22 @@ export class UserService {
         return userInfo;
     }
 
-    async wxLogin(code: string): Promise<IWxSession> {
+    async setUserInfo({ userId, userInfo }: { userId: string, userInfo: any }) {
+        const userCol = await this.mongo.getCol('user')
+        delete userInfo.openId
+        delete userInfo.userId
+        await userCol.updateOne({ userId }, { ...userInfo })
+        const user = await userCol.findOne({ userId })
+        return user
+    }
+
+    async getUserInfo(userId: string) {
+        const userCol = await this.mongo.getCol('user')
+        const user = await userCol.findOne({ userId })
+        return user
+    }
+
+    private async wxLogin(code: string): Promise<IWxSession> {
         const grant_type = 'authorization_code';
         const authLink = `https://api.weixin.qq.com/sns/jscode2session?appid=${_Config.appid}&secret=${_Config.secret}&js_code=${code}&grant_type=${grant_type}`;
         const res = await axios.get(authLink);
@@ -40,13 +55,13 @@ export class UserService {
         return wxSession;
     }
 
-    async findUser(openId: string) {
+    private async findUser(openId: string) {
         const userCol = await this.mongo.getCol('user')
         const user = await userCol.findOne({ openId });
         return user;
     }
 
-    async addUser(openId: string) {
+    private async addUser(openId: string) {
         const userCol = await this.mongo.getCol('user')
         const userId: string = UUID.genV4().hexNoDelim;
         const _user = {
@@ -55,11 +70,7 @@ export class UserService {
         }
         await userCol.insertOne(_user);
         const user = await userCol.findOne({ openId });
-        return user;
-    }
-
-    async getUserInfo() {
-        
+        return user
     }
 
 }

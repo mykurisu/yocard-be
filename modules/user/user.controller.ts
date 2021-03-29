@@ -15,4 +15,22 @@ export class UserController {
         const res = await this.userService.login(code);
         return res;
     };
+
+    @Post('/setUserInfo')
+    async setUserInfo(
+        @Body('userId') userId: string,
+        @Body('userInfo') userInfo: any,
+    ) {
+        const res = await this.userService.setUserInfo({ userId, userInfo });
+        return res;
+    }
+
+    @Post('/getUserInfo')
+    async getUserInfo(
+        @Body('userId') userId: string,
+    ) {
+        const res = await this.userService.getUserInfo(userId);
+        return res;
+    }
+
 };
