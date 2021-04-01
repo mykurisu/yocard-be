@@ -33,15 +33,18 @@ export class UserService {
         const userCol = await this.mongo.getCol('user')
         delete userInfo.openId
         delete userInfo.userId
-        await userCol.updateOne({ userId }, { ...userInfo })
-        const user = await userCol.findOne({ userId })
-        return user
+        await userCol.updateOne({ userId }, {
+            $set: {
+                userInfo
+            }
+        })
+        return {}
     }
 
     async getUserInfo(userId: string) {
         const userCol = await this.mongo.getCol('user')
         const user = await userCol.findOne({ userId })
-        return user
+        return user.userInfo || {}
     }
 
     private async wxLogin(code: string): Promise<IWxSession> {

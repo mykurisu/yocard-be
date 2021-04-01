@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from '@nestjs/common'
+import { Controller, Post, Body, Headers } from '@nestjs/common'
 import { UserService } from './user.service'
 
 
@@ -18,7 +18,7 @@ export class UserController {
 
     @Post('/setUserInfo')
     async setUserInfo(
-        @Body('userId') userId: string,
+        @Headers('userId') userId: string,
         @Body('userInfo') userInfo: any,
     ) {
         const res = await this.userService.setUserInfo({ userId, userInfo });
